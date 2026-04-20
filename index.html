@@ -368,7 +368,7 @@ document.getElementById("p"+n).classList.add("active");
 }
 
 /* MUSIC */
-},{once:true});
+document.body.addEventListener("click",()=>{
 let m=bgMusic;m.volume=0;m.play();
 let v=0;
 let f=setInterval(()=>{
