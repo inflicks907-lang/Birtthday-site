@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bounuuu's Birthday ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(120deg, #0f1020, #1a1a2e);
+  color: #f5e6c8;
+  overflow: hidden;
+}
+
+/* pages */
+.page {
+  display: none;
+  width:100vw;
+  height:100vh;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  opacity:0;
+  transition:0.6s;
+}
+.page.active{
+  display:flex;
+  opacity:1;
+}
+
+/* lock */
+#lockScreen{
+  position:fixed; inset:0;
+  background:#0f1020;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+#lockScreen.hide{
+  opacity:0;
+  transform:scale(1.1);
+  transition:0.8s;
+}
+
+/* slideshow */
+.frame{
+  background:#fff;
+  padding:10px;
+  border-radius:12px;
+  width:260px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.6);
+}
+.frame img{
+  width:100%;
+  border-radius:8px;
+  opacity:0;
+  transition:1s;
+}
+
+/* caption BELOW image */
+.caption{
+  margin-top:12px;
+  padding:8px 12px;
+  background:rgba(255,255,255,0.08);
+  border-radius:10px;
+  backdrop-filter:blur(6px);
+  font-size:14px;
+  opacity:0;
+  transition:1s;
+}
+
+/* buttons */
+button{
+  padding:10px 20px;
+  border-radius:20px;
+  border:1px solid gold;
+  background:none;
+  color:gold;
+  cursor:pointer;
+  margin-top:15px;
+}
+
+/* hearts */
+.heart{
+  position:fixed;
+  top:100vh;
+  animation:float 6s linear;
+}
+@keyframes float{
+  to{transform:translateY(-120vh);opacity:0;}
+}
+#finalLove{
+  margin-top:30px;
+  font-size:24px;
+  color:#fafafa;
+  text-align:center;
+
+  text-shadow:
+    0 0 5px #ff4d6d,
+    0 0 10px #ff4d6d,
+    0 0 20px #ff4d6d,
+    0 0 40px #ff4d6d;
+
+  animation: heartbeat 1.2s infinite;
+}
+
+@keyframes heartbeat{
+  0%{ transform:scale(1); }
+  25%{ transform:scale(1.1); }
+  40%{ transform:scale(0.95); }
+  60%{ transform:scale(1.15); }
+  100%{ transform:scale(1); }
+}
+/* hero section */
+.hero{
+  position:relative;
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* background image */
+.bg-img{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  top:0;
+  left:0;
+  filter:brightness(0.2);
+}
+
+/* dark overlay */
+.overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+}
+
+/* center content */
+.content{
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+/* text style */
+.content h1{
+  font-size:36px;
+  margin-bottom:10px;
+}
+
+.content p{
+  font-size:18px;
+  opacity:0.9;
+}
+/* blur transition */
+.blur-out{
+  animation: blurFade 0.8s forwards;
+}
+
+@keyframes blurFade{
+  0%{
+    filter:blur(0);
+    opacity:1;
+  }
+  100%{
+    filter:blur(15px);
+    opacity:0;
+  }
+}
+/* cake */
+.cake{
+  font-size:60px;
+  margin-top:20px;
+  transition:0.5s;
+}
+
+.cake.cut{
+  transform:scale(0.8) rotate(-10deg);
+  opacity:0.7;
+}
+
+/* confetti */
+.confetti{
+  position:fixed;
+  width:8px;
+  height:8px;
+  top:0;
+  animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(100vh) rotate(360deg);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOCK -->
+<div id="lockScreen">
+<h2>🔐 Enter Password</h2>
+<input type="password" id="passwordInput">
+<button onclick="unlock()">Unlock ❤️</button>
+<p id="error" style="color:red;"></p>
+</div>
+
+<audio id="bgMusic" loop>
+<source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+
+  <div class="hero">
+
+    <div class="overlay"></div>
+
+    <img src="herphoto.jpg" class="bg-img">
+
+    <div class="content">
+      <h1>Happy Birthday Bounuuu, My Sweetheart, My Love❤️</h1>
+      <p>For the most special person in my life ✨</p>
+      <button onclick="celebrate()">Start 💕</button>
+      <div class="cake" id="cake">🎂</div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+<h1>📸 Our Memories</h1>
+
+<div class="frame">
+  <img id="img1">
+</div>
+<div class="caption" id="cap1"></div>
+
+<button onclick="go(3)">Next ➡️</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+<h1>🥺 Moments With You</h1>
+
+<div class="frame">
+  <img id="img2">
+</div>
+<div class="caption" id="cap2"></div>
+
+<p style="margin-top:20px;">
+"Every moment with you is special ❤️"<br>
+"Even the small things mean everything ✨"<br>
+"With you, everything feels right 💕"
+
+</p>
+
+<button onclick="go(4)">Next ➡️</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="p4">
+  <h1>📩 A Letter For You</h1>
+
+  <div style="
+    max-width:600px;
+    margin-top:20px;
+    padding:25px;
+    line-height:1.8;
+    font-size:16px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,215,0,0.3);
+    border-radius:18px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.3);
+  ">
+    <p>My Love ❤️,</p>
+
+<p>
+When I was at my lowest, you made me feel like I wasn’t alone 🫂 — 
+not just in this world 🌍, but in every universe 🌌, every timeline ⏳, every version of life.
+</p>
+
+<p>
+If I were ever asked to choose again and again, in every lifetime ♾️, 
+you would always be my first choice ❤️. Not because I have to… 
+but because my heart would never look anywhere else 💖.
+</p>
+
+<p>
+You’re not just someone I love — you are my peace 🕊️, my happiness 😊, my safe place 🏡.  
+You are the part of my life that makes everything feel right, even when nothing else is ✨.
+</p>
+
+<p>
+I may not always find the perfect words to express it 💭, 
+but what I feel for you goes beyond what words can hold 🤍.  
+You are not just my love… you are my everything ❤️.
+</p>
+
+<p>
+If my life ever feels like mud, then you are the lotus that blooms within it 🌸 — 
+pure, beautiful, and full of life 🌼.  
+You are my shadow 🌙, always with me, in light and in darkness 🌗.
+</p>
+
+<p>
+You are not just a part of my story 📖… you are the meaning of it ❤️.
+</p>
+
+<p>
+Happy Birthday 🎂❤️  
+I am yours… always 💖
+</p>
+    <p style="margin-top:20px;">
+      Forever yours 💖
+    </p>
+  </div>
+
+  <button onclick="go(5)">Next ➡️</button>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page" id="p5">
+<h1>🎁 Final Surprise</h1>
+
+<p id="finalLove">
+ In every lifetime,<br>  
+in every world…<br>  
+I will always be yours... ❤️<br>
+BOUNUUUU, I LOVE YOU SO MUCH!
+</p>
+<button onclick="go(1)">Replay 🔁</button>
+</div>
+
+<script>
+
+/* PASSWORD */
+function unlock(){
+if(passwordInput.value==="170226"){
+lockScreen.classList.add("hide");
+setTimeout(()=>lockScreen.style.display="none",800);
+}else{
+error.innerText="Wrong password 💔";
+}
+}
+
+/* NAV */
+function go(n){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById("p"+n).classList.add("active");
+}
+
+/* MUSIC */
+document.body.addEventListener("click",()=>{
+let m=bgMusic;m.volume=0;m.play();
+let v=0;
+let f=setInterval(()=>{
+if(v<0.3){v+=0.02;m.volume=v;}else clearInterval(f);
+},200);
+},{once:true});
+
+/* HEARTS */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},300);
+
+/* IMAGES + CAPTIONS */
+let photos=["photo1.jpg","photo2.jpg","photo3.jpg"];
+let caps=[
+"The day my life changed ❤️",
+"You make everything fun 😂",
+"That moment meant everything ✨"
+];
+
+let i=0;
+
+function show(){
+let img1=document.getElementById("img1");
+let cap1=document.getElementById("cap1");
+let img2=document.getElementById("img2");
+let cap2=document.getElementById("cap2");
+
+img1.style.opacity=0;
+img2.style.opacity=0;
+cap1.style.opacity=0;
+cap2.style.opacity=0;
+
+setTimeout(()=>{
+img1.src=photos[i];
+img2.src=photos[i];
+cap1.innerText=caps[i];
+cap2.innerText=caps[i];
+
+img1.style.opacity=1;
+img2.style.opacity=1;
+cap1.style.opacity=1;
+cap2.style.opacity=1;
+
+i=(i+1)%photos.length;
+},500);
+}
+function celebrate(){
+
+  // 🎂 cake cut
+  document.getElementById("cake").classList.add("cut");
+
+  // 🎊 confetti
+  for(let i=0;i<40;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+
+  // go next page
+  setTimeout(()=>{
+    go(2);
+  },600);
+}
+
+setInterval(show,3000);
+show();
+
+</script>
+
+</body>
+</html>
